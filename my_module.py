@@ -82,14 +82,35 @@ def plot_corr(indice1, indice2, colonne, dict_df):
     RETURN
         None
     """
-    plt.figure(figsize = (15,15))
+    plt.figure(figsize = (15,10))
     plt.subplot(2,1,1)
     plt.plot(dict_df[indice1][colonne])
     plt.plot(dict_df[indice2][colonne])
+    plt.title(f'{indice1} vs {indice2}')
     plt.subplot(2,1,2)
     plt.plot(dict_df[indice1][colonne].rolling(200).corr(dict_df[indice2][colonne]))
+    plt.title(f'Corrélation {indice1} vs {indice2}')
     plt.show()
 
+
+def specify_candle_type(open_price, close_price):
+    """
+    Fonction permettant de verifier si le prix de clôture est supérieur ou inférieur ou égal à
+    celui du prix d'ouverture.
+    INPUTS :
+        open_price (string) : colonne Open
+        close_price (string) : colonne Close
+    Return
+        'bearish' si le prix d'ouverture est supérieur au prix de clôture
+        'bullish' si le prix d'ouverture est inférieur au prix de clôture
+        'doji' si le prix d'ouverture est égal au prix de clôture
+    """
+    if open_price > close_price:
+        return 'bearish'
+    elif open_price < close_price:
+        return 'bullish'
+    else:
+        return 'doji'
 
 # def graph_interactif2(ticker):
     
